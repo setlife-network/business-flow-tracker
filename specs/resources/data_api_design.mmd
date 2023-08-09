@@ -1,0 +1,38 @@
+classDiagram
+    class User {
+        +int id
+        +str username
+        +str password_hash
+        +__init__(username: str, password: str)
+        +check_password(password: str) : bool
+    }
+    class CashFlow {
+        +int id
+        +float amount
+        +datetime date
+        +User user
+        +__init__(amount: float, date: datetime, user: User)
+    }
+    class Workflow {
+        +int id
+        +str description
+        +datetime date
+        +User user
+        +__init__(description: str, date: datetime, user: User)
+    }
+    class Allocation {
+        +int id
+        +float amount
+        +User user
+        +__init__(amount: float, user: User)
+    }
+    class Payment {
+        +int id
+        +float amount
+        +User user
+        +__init__(amount: float, user: User)
+    }
+    User "1" -- "*" CashFlow
+    User "1" -- "*" Workflow
+    User "1" -- "*" Allocation
+    User "1" -- "*" Payment
