@@ -1,1 +1,4 @@
 python startup.py "create a website for a software solutions engineering agency to present a portfolio of work and enable incoming consultation requests with a form that collects details about new projects from potentially interested customers. Consider services provides, projects, service packages with cost estimates and anything else you can think of."
+
+# config.yaml:
+OPENAI_API_MODEL: "gpt-3.5-turbo-16k"
