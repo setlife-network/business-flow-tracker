@@ -1,17 +1,44 @@
 sequenceDiagram
-    participant M as Main
-    participant U as User
-    participant C as CashFlow
-    participant W as Workflow
-    participant A as Allocation
-    participant P as Payment
-    M->>U: create user
-    U->>M: return user
-    M->>C: create cashflow
-    C->>M: return cashflow
-    M->>W: create workflow
-    W->>M: return workflow
-    M->>A: create allocation
-    A->>M: return allocation
-    M->>P: create payment
-    P->>M: return payment
+    participant User as U
+    participant Browser as B
+    participant Django as D
+    participant Database as DB
+    participant Admin as A
+    participant Bootstrap as BS
+    participant CSS as C
+    participant JS as J
+    U->>B: Access website
+    B->>D: Request homepage
+    D->>DB: Retrieve projects and services
+    DB-->>D: Return data
+    D->>D: Render homepage template with data
+    D-->>B: Return rendered homepage
+    B->>U: Display homepage
+    U->>B: Navigate to portfolio section
+    B->>D: Request portfolio page
+    D->>DB: Retrieve projects
+    DB-->>D: Return projects
+    D->>D: Render portfolio template with projects
+    D-->>B: Return rendered portfolio page
+    B->>U: Display portfolio page
+    U->>B: Navigate to services section
+    B->>D: Request services page
+    D->>DB: Retrieve services
+    DB-->>D: Return services
+    D->>D: Render services template with services
+    D-->>B: Return rendered services page
+    B->>U: Display services page
+    U->>B: Navigate to contact section
+    B->>D: Request contact page
+    D->>D: Create empty consultation request form
+    D-->>B: Return consultation request form
+    B->>U: Display contact page with empty form
+    U->>B: Fill out consultation request form
+    B->>D: Submit form data
+    D->>D: Validate form data
+    D->>DB: Store form data
+    DB-->>D: Return success status
+    D->>A: Notify admin of new consultation request
+    A-->>D: Acknowledge notification
+    D-->>B: Return success status
+    B->>U: Display success message

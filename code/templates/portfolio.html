@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Software Solutions Engineering Agency</title>
+    <title>Software Solutions Engineering Agency - Portfolio</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/script.js' %}"></script>
 </head>
@@ -15,11 +15,9 @@
         </ul>
     </nav>
     <header>
-        <h1>Welcome to Software Solutions Engineering Agency</h1>
-        <p>We provide high-quality software solutions for your business needs.</p>
+        <h1>Our Portfolio</h1>
     </header>
     <section id="portfolio">
-        <h2>Portfolio</h2>
         <ul>
             {% for project in projects %}
             <li>
@@ -29,25 +27,6 @@
             </li>
             {% endfor %}
         </ul>
-    </section>
-    <section id="services">
-        <h2>Services</h2>
-        <ul>
-            {% for service in services %}
-            <li>
-                <h3>{{ service.title }}</h3>
-                <p>{{ service.description }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    <section id="contact">
-        <h2>Contact</h2>
-        <form method="POST" action="/contact/">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit</button>
-        </form>
     </section>
     <footer>
         <p>&copy; 2022 Software Solutions Engineering Agency. All rights reserved.</p>

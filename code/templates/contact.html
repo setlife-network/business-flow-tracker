@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Software Solutions Engineering Agency - Contact</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/portfolio/">Portfolio</a></li>
+            <li><a href="/services/">Services</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+    <section id="contact">
+        <h2>Get in touch</h2>
+        <form method="POST" action="/contact/">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="project_description">Project Description:</label>
+            <textarea id="project_description" name="project_description" required></textarea>
+            <label for="budget">Budget:</label>
+            <input type="number" id="budget" name="budget" step="0.01" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2022 Software Solutions Engineering Agency. All rights reserved.</p>
+    </footer>
+</body>
+</html>

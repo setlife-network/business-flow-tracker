@@ -1,90 +1,122 @@
-## Implementation approach
-We will use Flask, a lightweight and flexible Python web framework, for the backend of the website. Flask-SQLAlchemy will be used for database operations, and Flask-WTForms for form handling. For the frontend, we will use Bootstrap to create a responsive and user-friendly interface. We will also use Chart.js for displaying cashflow and workflow data in a visually appealing way.
+## Implementation approach:
+For the implementation of the website, we will use the Django framework, which is a high-level Python web framework that follows the model-view-controller (MVC) architectural pattern. Django provides a robust set of tools and features for building web applications, including a built-in admin interface, ORM for database management, and support for handling forms and user authentication.
 
-## Python package name
+To create a visually appealing website design, we will use the Bootstrap framework, which is a popular open-source CSS framework that provides a responsive grid system and pre-designed components. Bootstrap will help us create a modern and visually appealing user interface that adapts to different screen sizes.
+
+For the portfolio section, we will use the Django admin interface to manage and showcase the agency's work. We will create a model for projects and services, and use the admin interface to add, edit, and delete entries. The portfolio section will display thumbnail images and short descriptions of each project or service.
+
+To implement the consultation request form, we will use Django's built-in form handling capabilities. We will create a form model that collects details such as the customer's name, email, project description, and budget. When a user submits the form, we will validate the input and store the data in the database.
+
+For providing detailed information about the agency's services, we will create a separate page that displays the services offered by the agency. We will use Django's template system to render the information dynamically from the database.
+
+## Python package name:
 ```python
-"business_flow_tracker"
+"software_solutions_website"
 ```
 
-## File list
+## File list:
 ```python
 [
     "main.py",
     "models.py",
     "forms.py",
-    "routes.py",
+    "views.py",
+    "urls.py",
     "templates/index.html",
-    "templates/layout.html",
-    "templates/login.html",
-    "templates/register.html",
-    "templates/dashboard.html",
-    "static/css/main.css",
-    "static/js/main.js"
+    "templates/services.html",
+    "templates/portfolio.html",
+    "templates/contact.html",
+    "static/css/style.css",
+    "static/js/script.js"
 ]
 ```
 
-## Data structures and interface definitions
+## Data structures and interface definitions:
 ```mermaid
 classDiagram
-    class User {
-        +int id
-        +str username
-        +str password_hash
-        +__init__(username: str, password: str)
-        +check_password(password: str) : bool
+    class Project{
+        +title: str
+        +description: str
+        +thumbnail: ImageField
     }
-    class CashFlow {
-        +int id
-        +float amount
-        +datetime date
-        +User user
-        +__init__(amount: float, date: datetime, user: User)
+    class Service{
+        +title: str
+        +description: str
     }
-    class Workflow {
-        +int id
-        +str description
-        +datetime date
-        +User user
-        +__init__(description: str, date: datetime, user: User)
+    class ConsultationRequest{
+        +name: str
+        +email: EmailField
+        +project_description: TextField
+        +budget: DecimalField
     }
-    class Allocation {
-        +int id
-        +float amount
-        +User user
-        +__init__(amount: float, user: User)
+    class PortfolioPage{
+        +projects: List[Project]
     }
-    class Payment {
-        +int id
-        +float amount
-        +User user
-        +__init__(amount: float, user: User)
+    class ServicesPage{
+        +services: List[Service]
     }
-    User "1" -- "*" CashFlow
-    User "1" -- "*" Workflow
-    User "1" -- "*" Allocation
-    User "1" -- "*" Payment
+    class ContactPage{
+        +form: ConsultationRequestForm
+    }
+    class ConsultationRequestForm{
+        +name: CharField
+        +email: EmailField
+        +project_description: TextField
+        +budget: DecimalField
+    }
+    Project "1" -- "1" PortfolioPage: belongs to
+    Service "1" -- "1" ServicesPage: belongs to
+    ConsultationRequest "1" -- "1" ContactPage: belongs to
+    ConsultationRequestForm "1" -- "1" ContactPage: has
 ```
 
-## Program call flow
+## Program call flow:
 ```mermaid
 sequenceDiagram
-    participant M as Main
-    participant U as User
-    participant C as CashFlow
-    participant W as Workflow
-    participant A as Allocation
-    participant P as Payment
-    M->>U: create user
-    U->>M: return user
-    M->>C: create cashflow
-    C->>M: return cashflow
-    M->>W: create workflow
-    W->>M: return workflow
-    M->>A: create allocation
-    A->>M: return allocation
-    M->>P: create payment
-    P->>M: return payment
+    participant User as U
+    participant Browser as B
+    participant Django as D
+    participant Database as DB
+    participant Admin as A
+    participant Bootstrap as BS
+    participant CSS as C
+    participant JS as J
+    U->>B: Access website
+    B->>D: Request homepage
+    D->>DB: Retrieve projects and services
+    DB-->>D: Return data
+    D->>D: Render homepage template with data
+    D-->>B: Return rendered homepage
+    B->>U: Display homepage
+    U->>B: Navigate to portfolio section
+    B->>D: Request portfolio page
+    D->>DB: Retrieve projects
+    DB-->>D: Return projects
+    D->>D: Render portfolio template with projects
+    D-->>B: Return rendered portfolio page
+    B->>U: Display portfolio page
+    U->>B: Navigate to services section
+    B->>D: Request services page
+    D->>DB: Retrieve services
+    DB-->>D: Return services
+    D->>D: Render services template with services
+    D-->>B: Return rendered services page
+    B->>U: Display services page
+    U->>B: Navigate to contact section
+    B->>D: Request contact page
+    D->>D: Create empty consultation request form
+    D-->>B: Return consultation request form
+    B->>U: Display contact page with empty form
+    U->>B: Fill out consultation request form
+    B->>D: Submit form data
+    D->>D: Validate form data
+    D->>DB: Store form data
+    DB-->>D: Return success status
+    D->>A: Notify admin of new consultation request
+    A-->>D: Acknowledge notification
+    D-->>B: Return success status
+    B->>U: Display success message
 ```
 
-## Anything UNCLEAR
-The requirement is clear to me.
+## Anything UNCLEAR:
+The requirements are clear to me.

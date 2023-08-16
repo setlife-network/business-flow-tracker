@@ -1,38 +1,35 @@
 classDiagram
-    class User {
-        +int id
-        +str username
-        +str password_hash
-        +__init__(username: str, password: str)
-        +check_password(password: str) : bool
+    class Project{
+        +title: str
+        +description: str
+        +thumbnail: ImageField
     }
-    class CashFlow {
-        +int id
-        +float amount
-        +datetime date
-        +User user
-        +__init__(amount: float, date: datetime, user: User)
+    class Service{
+        +title: str
+        +description: str
     }
-    class Workflow {
-        +int id
-        +str description
-        +datetime date
-        +User user
-        +__init__(description: str, date: datetime, user: User)
+    class ConsultationRequest{
+        +name: str
+        +email: EmailField
+        +project_description: TextField
+        +budget: DecimalField
     }
-    class Allocation {
-        +int id
-        +float amount
-        +User user
-        +__init__(amount: float, user: User)
+    class PortfolioPage{
+        +projects: List[Project]
     }
-    class Payment {
-        +int id
-        +float amount
-        +User user
-        +__init__(amount: float, user: User)
+    class ServicesPage{
+        +services: List[Service]
     }
-    User "1" -- "*" CashFlow
-    User "1" -- "*" Workflow
-    User "1" -- "*" Allocation
-    User "1" -- "*" Payment
+    class ContactPage{
+        +form: ConsultationRequestForm
+    }
+    class ConsultationRequestForm{
+        +name: CharField
+        +email: EmailField
+        +project_description: TextField
+        +budget: DecimalField
+    }
+    Project "1" -- "1" PortfolioPage: belongs to
+    Service "1" -- "1" ServicesPage: belongs to
+    ConsultationRequest "1" -- "1" ContactPage: belongs to
+    ConsultationRequestForm "1" -- "1" ContactPage: has
